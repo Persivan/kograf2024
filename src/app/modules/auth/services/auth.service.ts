@@ -6,11 +6,11 @@ import {UserPairInterface} from "../types/userPair.interface";
 import {Router} from "@angular/router";
 
 // В проде эндпоинты будут отличаться
-const CHECK_USERNAME = 'users'
-const LOGIN_USER = 'users'
-const REGISTER_USER = 'users'
-const RESET_PASSWORD = 'users'
-const GET_USER_ID = 'users' // Костыль, т.к. json не может использовать в качестве первичного ключа username, нам нужен id
+const CHECK_USERNAME = 'emloyees'
+const LOGIN_USER = 'emloyees'
+const REGISTER_USER = 'emloyees'
+const RESET_PASSWORD = 'emloyees'
+const GET_USER_ID = 'emloyees' // Костыль, т.к. json не может использовать в качестве первичного ключа username, нам нужен id
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,7 @@ export class AuthService {
    */
   login(user: UserPairInterface): Observable<boolean> {
     const fullUrl = environment.apiUrl + LOGIN_USER;
-    return this.http.get<any[]>(`${fullUrl}?username=${user.username}&password=${user.password}`)
+    return this.http.get<any[]>(`${fullUrl}?fio=${user.username}&password=${user.password}`)
       .pipe(
         map(users => {
           if (users.length === 1) {
@@ -64,8 +64,24 @@ export class AuthService {
           // Имя пользователя уже используется
           return of(false);
         } else {
+          let userObj = {
+            fio: user.username,
+            password: user.password,
+            weights: {
+              "1": 2,
+              "2": 3,
+              "3": 5,
+              "4": 7,
+              "5": 9,
+              "6": 12,
+              "7": 20,
+              "8": 29,
+              "9": 30,
+              "10": 50
+            }
+          }
           // Имя пользователя доступно, приступаем к регистрации
-          return this.http.post<any>(fullUrl, user).pipe(
+          return this.http.post<any>(fullUrl, userObj).pipe(
             map(user => {
               // Предполагая успешную регистрацию, возвращается созданный пользователь.
               return !!(user && user.id);
@@ -90,7 +106,7 @@ export class AuthService {
     // которая достает id по username и уже потом патчит соответвующую учетку
     const fullUrlForGetUserId = environment.apiUrl + GET_USER_ID;
     const fullUrl = environment.apiUrl + RESET_PASSWORD;
-    return this.http.get<any[]>(`${fullUrlForGetUserId}?username=${user.username}`).pipe(
+    return this.http.get<any[]>(`${fullUrlForGetUserId}?fio=${user.username}`).pipe(
       mergeMap(users => {
         if (users.length === 1) {
           const userId = users[0].id;
@@ -110,7 +126,6 @@ export class AuthService {
   /**
    * Выход из учетной записи пользователя.
    */
-  // @todo прикрутить к кнопке выхода
   logout(): void {
     // Удаление пользователя из локального хранилища, чтобы выйти из системы.
     localStorage.removeItem('currentUser');
@@ -124,7 +139,7 @@ export class AuthService {
    */
   private isUsernameTaken(username: string): Observable<boolean> {
     const fullUrl = environment.apiUrl + CHECK_USERNAME;
-    return this.http.get<any[]>(`${fullUrl}?username=${username}`).pipe(
+    return this.http.get<any[]>(`${fullUrl}?fio=${username}`).pipe(
       map(users => users.length > 0),
       catchError(() => {
         // Обработка ошибок

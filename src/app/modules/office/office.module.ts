@@ -8,8 +8,15 @@ import {MatCardModule} from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatDialogModule} from "@angular/material/dialog";
-import {MatTableModule} from "@angular/material/table";
-import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatTableDataSource, MatTableModule} from "@angular/material/table";
+import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { TableComponent } from './components/board/table/table.component';
+import {MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
+import {MatInput, MatInputModule} from "@angular/material/input";
+import {MatSort, MatSortModule} from "@angular/material/sort";
+import {MatTabsModule} from "@angular/material/tabs";
+import { DirectorComponent } from './components/director/director.component';
 
 export const MODULE_ROUTE = 'office';
 
@@ -21,6 +28,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
       {path: 'profile', component: ProfileComponent},
       {path: 'board', component: BoardComponent},
+      {path: 'director', component: DirectorComponent},
     ]
   },
 
@@ -30,7 +38,10 @@ const routes: Routes = [
   declarations: [
     ProfileComponent,
     BoardComponent,
-    OfficeComponent
+    OfficeComponent,
+    SidebarComponent,
+    TableComponent,
+    DirectorComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +51,18 @@ const routes: Routes = [
     MatIcon,
     MatDialogModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatFormField,
+    MatInput,
+    MatSort,
+    MatLabel,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule,
+    MatPaginator,
+    MatPaginatorModule,
+    MatTabsModule
+
   ]
 })
 export class OfficeModule { }

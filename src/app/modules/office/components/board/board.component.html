@@ -1,35 +1,15 @@
-<table mat-table [dataSource]="elements" class="mat-elevation-z8">
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+  <mat-tab label="Просроченные">
+    <app-table [tasks]="outDatedTasks"></app-table>
+  </mat-tab>
+  <mat-tab label="На сегодня">
+    <app-table [tasks]="thisDayTasks"></app-table>
+  </mat-tab>
+  <mat-tab label="На этой неделе">
+    <app-table [tasks]="thisWeekTasks"></app-table>
+  </mat-tab>
+  <mat-tab label="На следующей неделе">
+    <app-table [tasks]="nextWeekTasks"></app-table>
+  </mat-tab>
+</mat-tab-group>
 
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
-  <!-- Position Column -->
-  <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-  </ng-container>
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-
-  <!-- Weight Column -->
-  <ng-container matColumnDef="weight">
-    <th mat-header-cell *matHeaderCellDef> Weight </th>
-    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-<mat-paginator [length]="paginationConfig.size" [pageSizeOptions]="[10, 50, 100]" aria-label="Выбор страницы">
-</mat-paginator>

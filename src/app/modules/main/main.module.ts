@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { LandingComponent } from './landing/landing.component';
 import { AboutComponent } from './about/about.component';
 import {RouterModule, Routes} from "@angular/router";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatFormField} from "@angular/material/form-field";
+import {MatTableModule} from "@angular/material/table";
 
 export const MODULE_ROUTE = 'main';
 
@@ -25,6 +28,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    MatPaginator,
+    MatFormField,
+    MatTableModule
   ]
 })
 export class MainModule { }

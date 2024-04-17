@@ -7,3 +7,12 @@
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
 }
+
+.mat-mdc-row {
+  height: 32px;
+}
+
+.mat-mdc-cell {
+  justify-content: center;
+  padding-left: 50px
+}

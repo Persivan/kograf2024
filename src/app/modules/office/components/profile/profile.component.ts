@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {UserInterface} from "../../types/User.interface";
+import {UserInterface} from "../../types/user.interface";
 import {AuthService} from "../../../auth/services/auth.service";
 import {DialogService, NotificationTypes} from "../../../../shared/services/dialog.service";
 import {take} from "rxjs";
+import {SkillInterface} from "../../types/skill.interface";
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +12,7 @@ import {take} from "rxjs";
 })
 export class ProfileComponent implements OnInit {
   currentUser!: UserInterface;
+  displayedColumns: string[] = ['position', 'name'];
 
   constructor(
     private authService: AuthService,
@@ -20,7 +22,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(<string>localStorage.getItem('currentUser'));
-    this.currentUser.role = 'Пользователь'
+    this.currentUser.role = 'Разработчик'
+    console.log(this.currentUser);
   }
 
 
@@ -40,5 +43,17 @@ export class ProfileComponent implements OnInit {
 
   like() {
     this.dialogService.notify('Мне тоже нравится собачка', NotificationTypes.success)
+  }
+
+  get dataSource(): SkillInterface[] {
+    let temp = [];
+    for (let weightsKey in this.currentUser.weights) {
+      temp.push({
+        level: weightsKey,
+        hours: this.currentUser.weights[weightsKey]
+      })
+    }
+    console.log(temp)
+    return temp;
   }
 }
