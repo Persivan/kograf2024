@@ -1,27 +1,50 @@
-# Kograf2024
+# Запуск
+1. `npm run start` - запустит бд в том числе
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.4.
+# Фиксы
+1. Если бд запустилась не на 3001, то изменить путь до апи в `src/environments/environment.development.ts:2`
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+# Фишки (функционал)
+* Учетка логин: `root` пароль: `root`
+* Роутинг
+* Не забываем отписываться, чтобы не было утечек памяти
+* 
 
-## Code scaffolding
+# Излишнее
+* store - здесь слишком мало модулей для его использования
+* тесты - тут нет pipelines, так что тестов не будет 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Роутинг
+* `/auth` - авторизация
+* `/auth/register` - регистрация
+* `/auth/reset-password` - восстановление пароля
+* `/main` - лэндинг доступный всегда
+* `/main/about` - создатели приложения
+* `/office` - личный кабинет пользователя доступный только пользователю (гварды)
+* `/office/board` - решение задания
+* Все остальное - будет редиректить на `/auth`
 
-## Build
+# Заметки разработчика
+## Арххитектура
+- modules
+  - module1
+  - module2
+    - components
+    - services
+    - types
+- shared
+  - constants
+  - modules
+    - module1
+    - module2
+      - components
+      - services
+      - types
+  - pipes (можно будет удалить)
+  - services
+    - service1
+    - service2
+  - types
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
